@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>InudQue — Morning Love Package 💗</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body{
+      margin:0;
+      font-family:"Poppins",sans-serif;
+      background:linear-gradient(180deg,#FFF4FA,#FFEFF3);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .card{
+      width:100%;
+      max-width:760px;
+      background:white;
+      padding:28px;
+      border-radius:22px;
+      text-align:center;
+      box-shadow:0 12px 30px rgba(255,107,154,0.25);
+      position:relative;
+    }
+    h1{
+      font-family:"Pacifico",cursive;
+      color:#FF6B9A;
+      margin:6px 0;
+      font-size:40px;
+    }
+    .name-badge{
+      padding:8px 18px;
+      border-radius:999px;
+      background:#FFF0F6;
+      color:#ff2e72;
+      font-weight:700;
+      display:inline-block;
+      margin-bottom:14px;
+    }
+    .message-box{
+      margin:20px auto;
+      max-width:640px;
+      padding:14px;
+      border-radius:14px;
+      border:1px dashed rgba(255,107,154,0.15);
+      background:#ffffffaa;
+    }
+    textarea{
+      width:100%;
+      max-width:640px;
+      min-height:120px;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.1);
+      resize:vertical;
+      font-size:16px;
+      margin-top:12px;
+    }
+    .btn{
+      padding:12px 18px;
+      border-radius:14px;
+      border:0;
+      cursor:pointer;
+      font-weight:700;
+      background:linear-gradient(90deg,#FF6B9A,#ff8db3);
+      color:white;
+      box-shadow:0 8px 18px rgba(0,0,0,0.06);
+      margin:6px;
+    }
+    .secondary{
+      background:white;
+      color:#FF6B9A;
+      border:1px solid #ffc3d9;
+    }
+    /* Animasi Hati */
+    .heart{
+      position:fixed;
+      font-size:20px;
+      animation:floatUp 4s linear forwards;
+      opacity:0.8;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) scale(1); opacity:1;}
+      100%{transform:translateY(-200px) scale(1.8); opacity:0;}
+    }
+    /* Glitter background */
+    .glitter{
+      position:fixed;
+      width:4px;
+      height:4px;
+      background:white;
+      border-radius:50%;
+      opacity:0.8;
+      animation:glitter 3s infinite ease-in-out;
+    }
+    @keyframes glitter{
+      0%{transform:scale(1); opacity:1;}
+      50%{transform:scale(0.4); opacity:0.3;}
+      100%{transform:scale(1); opacity:1;}
+    }
+    /* Love Letter Popup */
+    .popup{
+      position:fixed;
+      top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      visibility:hidden;
+      opacity:0;
+      transition:0.3s;
+    }
+    .popup.active{
+      visibility:visible;
+      opacity:1;
+    }
+    .letter{
+      background:white;
+      width:90%;max-width:420px;
+      padding:22px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 0 20px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Good Morning, Bebeb 🌞</h1>
+    <div class="name-badge">InudQue 💗</div>
+
+    <!-- Music + autoplay -->
+    <div style="background:#fff6fa;padding:12px;border-radius:12px;border:1px dashed #ffc8dd;">
+      <p style="margin:0 0 8px;font-weight:600;color:#333;">🎧 Yung Kai — Blue</p>
+      <audio id="bgm" src="data:audio/mp3;base64,SUQzBAAAAAABAFRYWFgAAAASAAADbWFqb3JfYnJhbmQAZGFzaABUWFhYAAAAEQAAA21pbm9yX3Zlcn..." autoplay loop playsinline muted></audio>
+      <button id="playBtn" class="btn secondary" style="margin-top:8px;">▶ Play Music</button>
+    </div>
+
+    <div class="message-box">
+      Hai <strong>Inud</strong> 💗,<br>
+      Selamat pagi sayang. Semoga harimu dimulai senyaman lagu yang lagi nyala ini.  
+      Kamu itu cahaya kecil yang bikin hari aku nggak pernah gelap 💕🌞
+    </div>
+
+    <button class="btn" id="openLetter">💌 Buka Surat Cinta</button>
+
+    <label style="font-weight:600;color:#444;display:block;margin-top:16px;">Balas pesan buat aku:</label>
+    <textarea id="replyArea">Hai sayang, selamat pagi juga. Makasih sudah bikin hari aku manis 💕</textarea>
+
+    <div>
+      <button class="btn" id="sendWa">Kirim ke WhatsApp Rizky</button>
+      <button class="btn secondary" id="copyBtn">Copy Pesan</button>
+    </div>
+  </div>
+
+  <!-- Popup Letter -->
+  <div class="popup" id="popupLove">
+    <div class="letter">
+      <h2 style="color:#FF6B9A;margin-top:0;">💌 Dear InudQue</h2>
+      <p>Kamu itu bukan cuma pagi aku. Kamu itu alasanku semangat dari bangun tidur sampai tidur lagi.  
+      Makasih ya sudah hadir di hidup aku 💕</p>
+      <button class="btn secondary" id="closeLetter">Tutup</button>
+    </div>
+  </div>
+
+  <script>
+    const targetNumber = "6282114633587";
+    const bgm = document.getElementById('bgm');
+    const playBtn = document.getElementById('playBtn');
+    playBtn.onclick = () => bgm.play();
+
+    // WA Button
+    document.getElementById('sendWa').onclick = () =>{
+      const t = encodeURIComponent(document.getElementById('replyArea').value);
+      window.open(`https://wa.me/${targetNumber}?text=${t}`,"_blank");
+    };
+
+    document.getElementById('copyBtn').onclick = async()=>{
+      await navigator.clipboard.writeText(document.getElementById('replyArea').value);
+    };
+
+    // Hearts generator
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className='heart';
+      h.textContent='💖';
+      h.style.left=Math.random()*100+'vw';
+      h.style.top=(Math.random()*20+80)+'vh';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    }
+    setInterval(spawnHeart,900);
+
+    // Glitter
+    function spawnGlitter(){
+      const g=document.createElement('div');
+      g.className='glitter';
+      g.style.left=Math.random()*100+'vw';
+      g.style.top=Math.random()*100+'vh';
+      document.body.appendChild(g);
+      setTimeout(()=>g.remove(),3000);
+    }
+    setInterval(spawnGlitter,300);
+
+    // Love Letter Popup
+    const popup=document.getElementById('popupLove');
+    document.getElementById('openLetter').onclick=()=>popup.classList.add('active');
+    document.getElementById('closeLetter').onclick=()=>popup.classList.remove('active');
+  document.addEventListener('DOMContentLoaded',()=>{const bgm=document.getElementById('bgm');bgm.muted=false;bgm.play().catch(()=>{});});
+</script>
+<div id="iosStart" style="position:fixed;inset:0;background:#0008;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:9999;color:white;font-size:22px;font-weight:600;">Tap to Start 💙</div>
+<script>
+const bgm=document.getElementById('bgm');
+const iosStart=document.getElementById('iosStart');
+iosStart.addEventListener('click',()=>{
+  bgm.muted=false;
+  bgm.play().catch(()=>{});
+  iosStart.style.display='none';
+});
+</script>
+</body>
+</html>
